@@ -50,10 +50,10 @@ module.exports = {
       // loads .css files
       {
         test: /\.css$/,
-        include: [
-          path.resolve(__dirname, "src/react"),
-          path.resolve(__dirname, "node_modules/"),
-        ],
+        // include: [
+        //   path.resolve(__dirname, "src/react"),
+        //   path.resolve(__dirname, "node_modules/"),
+        // ],
         use: [
           MiniCssExtractPlugin.loader,
           "css-loader"

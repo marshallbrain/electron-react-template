@@ -28,10 +28,15 @@ module.exports = merge(base, {
     new CspHtmlWebpackPlugin({
       "base-uri": ["'self'"],
       "object-src": ["'none'"],
-      "script-src": ["'self'"],
-      "style-src": ["'self'"],
+      "script-src": ["'self'", "'unsafe-eval'"],
+      "style-src": ["'self', 'unsafe-inline'"],
       "frame-src": ["'none'"],
       "worker-src": ["'none'"]
+    }, {
+      enabled: true,
+      nonceEnabled: {
+        "style-src": false,
+      },
     })
   ]
 })
