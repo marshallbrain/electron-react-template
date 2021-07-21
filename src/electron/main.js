@@ -2,9 +2,9 @@ const {
     app,
     protocol,
     BrowserWindow,
-    session,
     ipcMain,
-    Menu
+    Menu,
+    session
 } = require("electron");
 const {
     default: installExtension,
@@ -97,13 +97,16 @@ async function createWindow() {
     
     // Load react
     if (isDev) {
-        win.loadURL(selfHost);
+        win.loadURL(selfHost).then();
     } else {
-        win.loadURL(`${Protocol.scheme}://rse/index.html`);
+        win.loadURL(`${Protocol.scheme}://rse/index.html`).then();
     }
     
     win.webContents.on("did-finish-load", () => {
         win.setTitle(`Getting started with secure-electron-template (v${app.getVersion()})`);
+    });
+    
+    win.webContents.once("dom-ready", async () => {
     });
     
     // Only do these things when in development
@@ -117,7 +120,9 @@ async function createWindow() {
                 .catch((err) => console.log("An error occurred: ", err))
                 .finally(() => {
                     require("electron-debug")(); // https://github.com/sindresorhus/electron-debug
+                    // win.webContents.openDevTools();
                     win.webContents.openDevTools();
+                    console.log("dev tools")
                 });
         });
     }
@@ -206,7 +211,7 @@ app.on("activate", () => {
     // On macOS it's common to re-create a window in the react when the
     // dock icon is clicked and there are no other windows open.
     if (win === null) {
-        createWindow();
+        createWindow().then();
     }
 });
 
@@ -254,9 +259,7 @@ app.on("web-contents-created", (event, contents) => {
     // https://electronjs.org/docs/tutorial/security#13-disable-or-limit-creation-of-new-windows
     // This code replaces the old "new-window" event handling;
     // https://github.com/electron/electron/pull/24517#issue-447670981
-    contents.setWindowOpenHandler(({
-                                       url
-                                   }) => {
+    contents.setWindowOpenHandler(({url}) => {
         const parsedUrl = new URL(url);
         const validOrigins = [];
         

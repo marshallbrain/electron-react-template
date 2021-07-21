@@ -2,6 +2,7 @@ const {Menu, MenuItem, BrowserWindow} = require("electron");
 const i18nBackend = require("i18next-electron-fs-backend");
 const whitelist = require("../localization/whitelist");
 const isMac = process.platform === "darwin";
+const isDev = process.env.NODE_ENV === "development";
 
 const MenuBuilder = function (mainWindow, appName) {
     
@@ -143,18 +144,22 @@ const MenuBuilder = function (mainWindow, appName) {
             {
                 label: i18nextMainBackend.t("View"),
                 submenu: [
-                    {
-                        role: "reload",
-                        label: i18nextMainBackend.t("Reload")
-                    },
-                    {
-                        role: "forcereload",
-                        label: i18nextMainBackend.t("Force Reload")
-                    },
-                    {
-                        role: "toggledevtools",
-                        label: i18nextMainBackend.t("Toggle Developer Tools")
-                    },
+                    ...(isDev &&
+                        [
+                            {
+                                role: "reload",
+                                label: i18nextMainBackend.t("Reload")
+                            },
+                            {
+                                role: "forcereload",
+                                label: i18nextMainBackend.t("Force Reload")
+                            },
+                            {
+                                role: "toggledevtools",
+                                label: i18nextMainBackend.t("Toggle Developer Tools")
+                            },
+                        ]
+                    ),
                     {
                         type: "separator"
                     },

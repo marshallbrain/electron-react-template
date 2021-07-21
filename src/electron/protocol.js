@@ -15,7 +15,7 @@ Implementing a custom protocol achieves two goals:
 const fs = require("fs");
 const path = require("path");
 
-const DIST_PATH = path.join(__dirname, "../../react/dist");
+const DIST_PATH = path.join(__dirname, "../../src/dist");
 const scheme = "app";
 
 const mimeTypes = {
