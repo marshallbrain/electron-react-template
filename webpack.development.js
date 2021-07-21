@@ -29,7 +29,7 @@ module.exports = merge(base, {
       "base-uri": ["'self'"],
       "object-src": ["'none'"],
       "script-src": ["'self'", "'unsafe-eval'"],
-      "style-src": ["'self', 'unsafe-inline'"],
+      "style-src": ["'self'", "'unsafe-inline'"],
       "frame-src": ["'none'"],
       "worker-src": ["'none'"]
     }, {
