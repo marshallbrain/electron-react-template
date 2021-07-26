@@ -3,14 +3,9 @@
         [
             "module-resolver",
             {
-                "cwd": "babelrc",                
+                "cwd": "babelrc",
                 "alias": {
-                    "Constants": "./src/react/constants",
-                    "Components": "./src/react/components",
-                    "Core": "./src/react/core",
-                    "Pages": "./src/react/pages",
-                    "Redux": "./src/react/redux",
-                    "I18n": "./src/localization"
+                    "React": "./src/react/"
                 }
             },
             "@babel/plugin-syntax-dynamic-import"
