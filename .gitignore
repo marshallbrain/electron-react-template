@@ -89,7 +89,7 @@ typings/
 out/
 
 # Bundled files
-src/dist/
+build/
 
 # Packed apps
 dist/

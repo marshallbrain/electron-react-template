@@ -76,5 +76,6 @@ module.exports = merge(base, {
             "...", // This adds default minimizers to webpack. For JS, Terser is used. // https://webpack.js.org/configuration/optimization/#optimizationminimizer
             new CssMinimizerPlugin()
         ]
-    }
+    },
+    node: {global: true}
 })

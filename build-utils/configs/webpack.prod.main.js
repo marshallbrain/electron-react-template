@@ -28,11 +28,11 @@ module.exports = [
         },
     }),
     merge(base, {
-    entry: './src/preload.js',
-    target: 'electron-preload',
-    output: {
-        path: path.join(__dirname, '../../build'),
-        filename: 'preload.js'
-    }
+        entry: './src/preload.js',
+        target: 'electron-preload',
+        output: {
+            path: path.join(__dirname, '../../build'),
+            filename: 'preload.js'
+    },
 }),
 ]

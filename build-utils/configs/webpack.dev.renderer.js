@@ -6,6 +6,7 @@ const base = require("./webpack.base")
 const path = require("path");
 const webpack = require("webpack");
 const { spawn } = require("child_process")
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const port = process.env.PORT || 3000;
 const publicPath = `http://localhost:${port}/dist`;
@@ -90,6 +91,12 @@ module.exports = merge(base, {
         new webpack.LoaderOptionsPlugin({
             debug: true,
         }),
+        // fix "process is not defined" error;
+        // https://stackoverflow.com/a/64553486/1837080
+        new webpack.ProvidePlugin({
+            process: "process/browser.js",
+        }),
+        new ReactRefreshWebpackPlugin(),
         new MiniCssExtractPlugin(),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, "../../src/react/index.html"),

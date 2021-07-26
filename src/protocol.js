@@ -16,7 +16,7 @@ const fs = require("fs");
 const path = require("path");
 
 const scheme = "app";
-const DIST_PATH = path.join(__dirname, "../../app/dist");
+const DIST_PATH = path.join(__dirname, "../build");
 
 const mimeTypes = {
     ".js": "text/javascript",
@@ -64,4 +64,5 @@ function requestHandler(req, next) {
     });
 }
 
-export { scheme, requestHandler }
+export { scheme }
+export default requestHandler

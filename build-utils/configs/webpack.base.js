@@ -1,8 +1,4 @@
-const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 const path = require("path");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const webpack = require("webpack");
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 module.exports = {
     module: {
@@ -40,12 +36,4 @@ module.exports = {
         extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
         modules: [path.join(__dirname, './src'), 'node_modules'],
     },
-    plugins: [
-        // fix "process is not defined" error;
-        // https://stackoverflow.com/a/64553486/1837080
-        new webpack.ProvidePlugin({
-            process: "process/browser.js",
-        }),
-        new ReactRefreshWebpackPlugin()
-    ]
 };

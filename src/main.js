@@ -1,12 +1,20 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import { app, protocol, BrowserWindow } from "electron"
-import {scheme} from "./protocol";
+import Protocol, {scheme} from "./protocol";
 import path from 'path';
+import fs from "fs"
 
+const isDev = process.env.NODE_ENV === "development";
 const selfHost = `http://localhost:${3000}`
 
 const createWindow = async () => {
+    
+    if (!isDev) {
+        // Needs to happen before creating/loading the browser window;
+        // protocol is only used in prod
+        protocol.registerBufferProtocol(scheme, Protocol); /* eng-disable PROTOCOL_HANDLER_JS_CHECK */
+    }
     
     const mainWindow = new BrowserWindow({
         width: 800,
@@ -25,7 +33,12 @@ const createWindow = async () => {
         }
     });
     
-    mainWindow.loadURL(`${selfHost}/dist`).then();
+    if (isDev) {
+        mainWindow.loadURL(`${selfHost}/dist`).then();
+    } else {
+        mainWindow.loadURL(`${scheme}://rse/index.html`).then();
+        console.log()
+    }
 
 }
 
